@@ -14,8 +14,12 @@ export default class App extends Component {
         filter: '',
       }
       componentDidMount() {
+         
         const dataLocal = JSON.parse(localStorage.getItem('phoneBook'))
-        this.setState( ({ contacts: [...dataLocal]}));
+        if(dataLocal){
+            this.setState( ({ contacts: [...dataLocal]}));
+        }
+       
         
     }
     componentDidUpdate(){
