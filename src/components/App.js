@@ -7,20 +7,30 @@ export default class App extends Component {
         contacts: [
             {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
             {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-            {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-            {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+            
         ],
         name: '',
         number: '',
         filter: '',
       }
+      componentDidMount() {
+        const dataLocal = JSON.parse(localStorage.getItem('phoneBook'))
+        this.setState( ({ contacts: [...dataLocal]}));
+        
+    }
+    componentDidUpdate(){
+        localStorage.setItem('phoneBook',JSON.stringify(this.state.contacts))
+    }
+      
+      
     onChange = (e) => {
           this.setState({ [e.target.name]: e.target.value });
+         
        }
     onSubmit = e => {
            e.preventDefault();
            this.setState(prevState => ({
-            contacts: [...prevState.contacts, {name: this.state.name,id:uuidv4(),number: this.state.number }],name: '',number:''
+            contacts: [...prevState.contacts, {name: this.state.name,id:uuidv4(),number: this.state.number }],name: '',number:'',
         }));
        }
     handleDelete =  e => {
@@ -40,6 +50,7 @@ export default class App extends Component {
        }
 
     render() {
+        
         return(  <>
         <div className="addPanel">
             <h1>Phonebook</h1>
