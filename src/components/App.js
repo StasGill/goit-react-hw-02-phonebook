@@ -13,18 +13,7 @@ export default class App extends Component {
         number: '',
         filter: '',
       }
-      componentDidMount() {
-         
-        const dataLocal = JSON.parse(localStorage.getItem('phoneBook'))
-        if(dataLocal){
-            this.setState( ({ contacts: [...dataLocal]}));
-        }
-       
-        
-    }
-    componentDidUpdate(){
-        localStorage.setItem('phoneBook',JSON.stringify(this.state.contacts))
-    }
+    
       
       
     onChange = (e) => {
@@ -52,6 +41,20 @@ export default class App extends Component {
         const filtered = this.state.contacts.filter(item => item.name.toLowerCase().includes(this.state.filter.toLowerCase()))
         return filtered
        }
+       componentDidMount() {
+         
+        const dataLocal = JSON.parse(localStorage.getItem('phoneBook'))
+        if(dataLocal){
+            this.setState( ({ contacts: [...dataLocal]}));
+        }else{
+            return
+        }
+       
+        
+    }
+    componentDidUpdate(){
+        localStorage.setItem('phoneBook',JSON.stringify(this.state.contacts))
+    }
 
     render() {
         
